@@ -16,7 +16,7 @@ public class EmaillistController {
 	@Autowired
 	private EmaillistRepository emaillistRepository;
 
-	@RequestMapping("/")
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String main(Model model) {
 		List<EmaillistVo> list = emaillistRepository.findAll();
 		model.addAttribute("list", list);
