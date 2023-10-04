@@ -41,7 +41,6 @@ public class XmlConfigTest {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("com/poscodx/container/user/applicationContext02.xml");
 		
 		User user = null;
-
 		
 		// id로 빈 가져오기
 		user = (User)ac.getBean("user");
@@ -52,14 +51,29 @@ public class XmlConfigTest {
 		System.out.println(user.getName());
 		
 		// Type으로 빈 가져오기
-		user = ac.getBean(User.class);
-		System.out.println(user.getName());
-	}
-
-	private static void testBeanFactory02() {
-		BeanFactory bf = new XmlBeanFactory(new ClassPathResource("com/poscodx/container/user/applicationContext02.xml"));
-		User user = bf.getBean(User.class);
-		System.out.println(user.getName());
+		// 같은 타입의 빈이 2개 이상 있으면 Type으로 가져오기는 실패
+		user = ac.getBean("user2", User.class);
+		System.out.println(user);
+		
+		// 파라미터 2개인 생성자로 생성된 빈I 가져오기
+		user = ac.getBean("user3", User.class);
+		System.out.println(user);
+		
+		// 파라미터 2개인 생성자로 생성된 빈II 가져오기
+		user = ac.getBean("user4", User.class);
+		System.out.println(user);
+		
+		// setter를 사용한 빈I 가져오기
+		user = ac.getBean("user5", User.class);
+		System.out.println(user);
+		
+		// setter를 사용한 빈II 가져오기: DI
+		user = ac.getBean("user6", User.class);
+		System.out.println(user);
+		
+		// setter를 사용한 빈III 가져오기: Collection Property
+		user = ac.getBean("user7", User.class);
+		System.out.println(user);
 	}
 
 	private static void testBeanFactory01() {
@@ -68,4 +82,9 @@ public class XmlConfigTest {
 		System.out.println(user.getName());
 	}
 
+	private static void testBeanFactory02() {
+		BeanFactory bf = new XmlBeanFactory(new ClassPathResource("com/poscodx/container/user/applicationContext02.xml"));
+		User user = bf.getBean(User.class);
+		System.out.println(user.getName());
+	}
 }
