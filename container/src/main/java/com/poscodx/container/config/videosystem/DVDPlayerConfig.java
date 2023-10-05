@@ -29,4 +29,14 @@ public class DVDPlayerConfig {
 	public DVDPlayer dvdPlayer02(DigitalVideoDisc dvd) {
 		return new DVDPlayer(dvd);
 	}
+	
+	// 주입(injection)하기 III
+	// Parameter로 Bean을 전달하는 방법
+	// setter 주입
+	@Bean
+	public DVDPlayer dvdPlayer03(DigitalVideoDisc dvd) {
+		DVDPlayer dvdPlayer = new DVDPlayer();
+		dvdPlayer.setDvd(dvd);
+		return dvdPlayer;
+	}
 }
